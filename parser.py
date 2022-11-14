@@ -6,7 +6,6 @@ from collections.abc import Callable
 import ast
 import inspect
 import textwrap
-from typing import Any
 
 import dill
 
@@ -17,7 +16,6 @@ def parse_function(fn: Callable[..., Any]) -> ast.FunctionDef:
     """Parses given function.
 
     Args:
-        fn: Target function.
 
     Returns:
         AST tree representing `fn`.
@@ -29,7 +27,6 @@ def parse_function(fn: Callable[..., Any]) -> ast.FunctionDef:
         source = dill.source.getsource(fn)
 
     # Remove extra indentation so that ast.parse runs correctly.
-    source = textwrap.dedent(source)
 
     tree = ast.parse(source)
     if not tree.body or not isinstance(tree.body[0], ast.FunctionDef):
